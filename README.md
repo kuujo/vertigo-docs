@@ -1,4 +1,5 @@
-vertigo-docs
+Vertigo Docs
 ============
 
-Aggregated Vertigo API documentation for vertigo.kuujo.net
+Aggregated [Vertigo](https://github.com/kuujo.vertigo) API documentation for
+[vertigo.kuujo.net](http://vertigo.kuujo.net)
