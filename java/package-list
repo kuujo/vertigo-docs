@@ -4,6 +4,7 @@ net.kuujo.vertigo.component
 net.kuujo.vertigo.context
 net.kuujo.vertigo.events
 net.kuujo.vertigo.feeder
+net.kuujo.vertigo.hooks
 net.kuujo.vertigo.input
 net.kuujo.vertigo.input.filter
 net.kuujo.vertigo.input.grouping
