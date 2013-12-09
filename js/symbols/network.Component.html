@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - worker.Worker</title>
+		<title>JsDoc Reference - network.Component</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -238,7 +238,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class worker.Worker
+				Class network.Component
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -249,13 +249,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/src_main_resources_vertigo_worker.js.html">worker.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/src_main_resources_vertigo_network.js.html">network.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class worker.Worker.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class network.Component.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -268,9 +268,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/worker.Worker.html#constructor">worker.Worker</a></b>(jworker)
+								<b><a href="../symbols/network.Component.html#constructor">network.Component</a></b>(obj)
 							</div>
-							<div class="description">A worker object.</div>
+							<div class="description">A network component.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -284,7 +284,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class worker.Worker.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class network.Component.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -297,54 +297,72 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#ack">ack</a></b>(The)
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#addHook">addHook</a></b>(event, handler)
 								</div>
-								<div class="description">Acks a message.</div>
+								<div class="description">Adds a hook handler for a specific component event.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#emit">emit</a></b>(data, stream, The)
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#addInput">addInput</a></b>(address, stream)
 								</div>
-								<div class="description">Emits data from the worker.</div>
+								<div class="description">Adds an input to the component.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#fail">fail</a></b>(The)
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#config">config</a></b>(config)
 								</div>
-								<div class="description">Fails a message.</div>
+								<div class="description">Sets or gets the component configuration.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#messageHandler">messageHandler</a></b>(handler)
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#instances">instances</a></b>(instances)
 								</div>
-								<div class="description">Sets a message handler on the worker.</div>
+								<div class="description">Sets or gets the number of component instances.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#start">start</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#isModule">isModule</a></b>()
 								</div>
-								<div class="description">Starts the worker.</div>
+								<div class="description">Returns a boolean indicating whether this component is a module.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#startHandler">startHandler</a></b>(handler)
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#isVerticle">isVerticle</a></b>()
 								</div>
-								<div class="description">Sets a start handler on the worker.</div>
+								<div class="description">Returns a boolean indicating whether this component is a verticle.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#main">main</a></b>(main)
+								</div>
+								<div class="description">Sets or gets the component main.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/network.Component.html#module">module</a></b>(main)
+								</div>
+								<div class="description">Sets or gets the component module name.</div>
 							</td>
 						</tr>
 					
@@ -365,11 +383,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>worker.Worker</b>(jworker)
+						<b>network.Component</b>(obj)
 				</div>
 				
 				<div class="description">
-					A worker object.
+					A network component.
 					
 				</div>
 				
@@ -381,7 +399,7 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>jworker</b>
+								 <b>obj</b>
 								
 							</dt>
 								<dd></dd>
@@ -407,15 +425,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="ack"> </a>
+					<a name="addHook"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>ack</b>(The)
+					<span class="light">{module:vertigo/network.Component}</span>
+					<b>addHook</b>(event, handler)
 					
 					</div>
 					<div class="description">
-						Acks a message.
+						Adds a hook handler for a specific component event.
 						
 						
 					</div>
@@ -427,10 +445,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
+									<span class="light fixedFont">{String}</span> <b>event</b>
 									
 								</dt>
-								<dd>message to ack.</dd>
+								<dd>The hook event.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Handler}</span> <b>handler</b>
+									
+								</dt>
+								<dd>A hook handler.</dd>
 							
 							</dl>
 						
@@ -441,7 +465,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
+								<dd><span class="light fixedFont">{module:vertigo/network.Component}</span> this</dd>
 							
 							</dl>
 						
@@ -450,15 +474,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="emit"> </a>
+					<a name="addInput"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{string}</span>
-					<b>emit</b>(data, stream, The)
+					<span class="light">{module:vertigo/input.Input}</span>
+					<b>addInput</b>(address, stream)
 					
 					</div>
 					<div class="description">
-						Emits data from the worker.
+						Adds an input to the component.
 						
 						
 					</div>
@@ -470,50 +494,80 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>data</b>
+									<span class="light fixedFont">{string}</span> <b>address</b>
 									
 								</dt>
-								<dd>The data to emit.</dd>
+								<dd>The input address.</dd>
 							
 								<dt>
 									<span class="light fixedFont">{string}</span> <b>stream</b>
+									
+								</dt>
+								<dd>The stream to which to subscribe.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{module:vertigo/input.Input}</span> The added input instance</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="config"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>config</b>(config)
+					
+					</div>
+					<div class="description">
+						Sets or gets the component configuration.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>config</b>
 									<i>Optional</i>
 								</dt>
-								<dd>The stream to which to emit the message.</dd>
-							
-								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
-									
-								</dt>
-								<dd>parent message.</dd>
+								<dd>The JSON component configuration.</dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{string}</span> a unique message identifier.</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="fail"> </a>
+					<a name="instances"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>fail</b>(The)
+					
+					<b>instances</b>(instances)
 					
 					</div>
 					<div class="description">
-						Fails a message.
+						Sets or gets the number of component instances.
 						
 						
 					</div>
@@ -525,38 +579,81 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
-									
+									<span class="light fixedFont">{Integer}</span> <b>instances</b>
+									<i>Optional</i>
 								</dt>
-								<dd>message to fail.</dd>
+								<dd>The number of component instances.</dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="messageHandler"> </a>
+					<a name="isModule"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>messageHandler</b>(handler)
+					
+					<b>isModule</b>()
 					
 					</div>
 					<div class="description">
-						Sets a message handler on the worker.
+						Returns a boolean indicating whether this component is a module.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isVerticle"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>isVerticle</b>()
+					
+					</div>
+					<div class="description">
+						Returns a boolean indicating whether this component is a verticle.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="main"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>main</b>(main)
+					
+					</div>
+					<div class="description">
+						Sets or gets the component main.
 						
 						
 					</div>
@@ -568,70 +665,31 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Handler}</span> <b>handler</b>
-									
+									<span class="light fixedFont">{String}</span> <b>main</b>
+									<i>Optional</i>
 								</dt>
-								<dd>The message handler.</dd>
+								<dd>The component main.</dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="start"> </a>
+					<a name="module"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>start</b>()
+					
+					<b>module</b>(main)
 					
 					</div>
 					<div class="description">
-						Starts the worker.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="startHandler"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>startHandler</b>(handler)
-					
-					</div>
-					<div class="description">
-						Sets a start handler on the worker.
+						Sets or gets the component module name.
 						
 						
 					</div>
@@ -643,23 +701,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Handler}</span> <b>handler</b>
-									
+									<span class="light fixedFont">{String}</span> <b>main</b>
+									<i>Optional</i>
 								</dt>
-								<dd>A handler to be called when the worker is started.</dd>
+								<dd>The component module name.</dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
 						
 						
 						

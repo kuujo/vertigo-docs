@@ -193,7 +193,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/cluster.LocalCluster.html">cluster.LocalCluster</a></li>
 	
-	<li><a href="../symbols/cluster.ViaCluster.html">cluster.ViaCluster</a></li>
+	<li><a href="../symbols/cluster.RemoteCluster.html">cluster.RemoteCluster</a></li>
 	
 	<li><a href="../symbols/context.ComponentContext.html">context.ComponentContext</a></li>
 	
@@ -201,17 +201,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/context.NetworkContext.html">context.NetworkContext</a></li>
 	
-	<li><a href="../symbols/feeder.BasicFeeder.html">feeder.BasicFeeder</a></li>
+	<li><a href="../symbols/error.FailureError.html">error.FailureError</a></li>
 	
-	<li><a href="../symbols/feeder.PollingFeeder.html">feeder.PollingFeeder</a></li>
+	<li><a href="../symbols/error.TimeoutError.html">error.TimeoutError</a></li>
 	
-	<li><a href="../symbols/feeder.StreamFeeder.html">feeder.StreamFeeder</a></li>
+	<li><a href="../symbols/executor.Executor.html">executor.Executor</a></li>
 	
-	<li><a href="../symbols/filter.FieldFilter.html">filter.FieldFilter</a></li>
-	
-	<li><a href="../symbols/filter.SourceFilter.html">filter.SourceFilter</a></li>
-	
-	<li><a href="../symbols/filter.TagsFilter.html">filter.TagsFilter</a></li>
+	<li><a href="../symbols/feeder.Feeder.html">feeder.Feeder</a></li>
 	
 	<li><a href="../symbols/grouping.AllGrouping.html">grouping.AllGrouping</a></li>
 	
@@ -227,19 +223,9 @@ ul.inheritsList
 	
 	<li><a href="../symbols/message.Message.html">message.Message</a></li>
 	
-	<li><a href="../symbols/network.Module.html">network.Module</a></li>
+	<li><a href="../symbols/network.Component.html">network.Component</a></li>
 	
 	<li><a href="../symbols/network.Network.html">network.Network</a></li>
-	
-	<li><a href="../symbols/network.Verticle.html">network.Verticle</a></li>
-	
-	<li><a href="../symbols/rpc.BasicExecutor.html">rpc.BasicExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.PollingExecutor.html">rpc.PollingExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.StreamExecutor.html">rpc.StreamExecutor</a></li>
-	
-	<li><a href="../symbols/worker.BasicWorker.html">worker.BasicWorker</a></li>
 	
 	<li><a href="../symbols/worker.Worker.html">worker.Worker</a></li>
 	
@@ -293,6 +279,84 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class message.Message.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;inner&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#-body">body</a></b>
+								</div>
+								<div class="description">The message body.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#id">id</a></b>
+								</div>
+								<div class="description">The message correlation ID.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#parent">parent</a></b>
+								</div>
+								<div class="description">The parent message correlation ID.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#root">root</a></b>
+								</div>
+								<div class="description">The root message correlation ID.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#source">source</a></b>
+								</div>
+								<div class="description">The message source address.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/message.Message.html#stream">stream</a></b>
+								</div>
+								<div class="description">The stream on which the message arrived.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 
 <!-- ============================== methods summary ======================== -->
 			
@@ -311,9 +375,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/message.Message.html#copy">copy</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/message.Message.html#hasParent">hasParent</a></b>()
 								</div>
-								<div class="description">Copies the message.</div>
+								<div class="description">Indicates whether the message has a parent.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/message.Message.html#hasRoot">hasRoot</a></b>()
+								</div>
+								<div class="description">Indicates whether the message has a root.</div>
 							</td>
 						</tr>
 					
@@ -369,6 +442,143 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="-body"> </a>
+					<div class="fixedFont">&lt;inner&gt; 
+					
+					
+					<b>body</b>
+					
+					</div>
+					<div class="description">
+						The message body.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="id"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>id</b>
+					
+					</div>
+					<div class="description">
+						The message correlation ID.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="parent"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>parent</b>
+					
+					</div>
+					<div class="description">
+						The parent message correlation ID.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="root"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>root</b>
+					
+					</div>
+					<div class="description">
+						The root message correlation ID.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="source"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>source</b>
+					
+					</div>
+					<div class="description">
+						The message source address.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="stream"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>stream</b>
+					
+					</div>
+					<div class="description">
+						The stream on which the message arrived.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
 			
@@ -376,15 +586,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="copy"> </a>
+					<a name="hasParent"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/message.Message}</span>
-					<b>copy</b>()
+					
+					<b>hasParent</b>()
 					
 					</div>
 					<div class="description">
-						Copies the message.
+						Indicates whether the message has a parent.
 						
 						
 					</div>
@@ -396,12 +606,30 @@ ul.inheritsList
 						
 						
 						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/message.Message}</span> A copy of the message</dd>
-							
-							</dl>
+						
+						
+
+					<hr />
+				
+					<a name="hasRoot"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>hasRoot</b>()
+					
+					</div>
+					<div class="description">
+						Indicates whether the message has a root.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
 						
 						
 						
@@ -420,7 +648,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 06 2013 15:53:13 GMT-0800 (PST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 09 2013 15:49:25 GMT-0800 (PST)
 		</div>
 	</body>
 </html>

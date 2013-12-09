@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - worker.Worker</title>
+		<title>JsDoc Reference - cluster.RemoteCluster</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -238,7 +238,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class worker.Worker
+				Class cluster.RemoteCluster
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -249,13 +249,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/src_main_resources_vertigo_worker.js.html">worker.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/src_main_resources_vertigo_cluster.js.html">cluster.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class worker.Worker.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class cluster.RemoteCluster.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -268,9 +268,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/worker.Worker.html#constructor">worker.Worker</a></b>(jworker)
+								<b><a href="../symbols/cluster.RemoteCluster.html#constructor">cluster.RemoteCluster</a></b>(address)
 							</div>
-							<div class="description">A worker object.</div>
+							<div class="description">A remote cluster.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -284,7 +284,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class worker.Worker.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class cluster.RemoteCluster.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -297,54 +297,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#ack">ack</a></b>(The)
+								<div class="fixedFont"><b><a href="../symbols/cluster.RemoteCluster.html#deploy">deploy</a></b>(network, handler)
 								</div>
-								<div class="description">Acks a message.</div>
+								<div class="description">Deploys a network.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#emit">emit</a></b>(data, stream, The)
+								<div class="fixedFont"><b><a href="../symbols/cluster.RemoteCluster.html#shutdown">shutdown</a></b>(network, handler)
 								</div>
-								<div class="description">Emits data from the worker.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#fail">fail</a></b>(The)
-								</div>
-								<div class="description">Fails a message.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#messageHandler">messageHandler</a></b>(handler)
-								</div>
-								<div class="description">Sets a message handler on the worker.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#start">start</a></b>()
-								</div>
-								<div class="description">Starts the worker.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/worker.Worker.html#startHandler">startHandler</a></b>(handler)
-								</div>
-								<div class="description">Sets a start handler on the worker.</div>
+								<div class="description">Shuts down a network.</div>
 							</td>
 						</tr>
 					
@@ -365,11 +329,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>worker.Worker</b>(jworker)
+						<b>cluster.RemoteCluster</b>(address)
 				</div>
 				
 				<div class="description">
-					A worker object.
+					A remote cluster.
 					
 				</div>
 				
@@ -381,7 +345,7 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>jworker</b>
+								 <b>address</b>
 								
 							</dt>
 								<dd></dd>
@@ -407,15 +371,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="ack"> </a>
+					<a name="deploy"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>ack</b>(The)
+					<span class="light">{module:vertigo/cluster.LocalCluster}</span>
+					<b>deploy</b>(network, handler)
 					
 					</div>
 					<div class="description">
-						Acks a message.
+						Deploys a network.
 						
 						
 					</div>
@@ -427,10 +391,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
+									<span class="light fixedFont">{module:vertigo/network.Network}</span> <b>network</b>
 									
 								</dt>
-								<dd>message to ack.</dd>
+								<dd>The network to deploy</dd>
+							
+								<dt>
+									<b>handler</b>
+									
+								</dt>
+								<dd>An asynchronous result handler</dd>
 							
 							</dl>
 						
@@ -441,7 +411,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
+								<dd><span class="light fixedFont">{module:vertigo/cluster.LocalCluster}</span> this</dd>
 							
 							</dl>
 						
@@ -450,15 +420,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="emit"> </a>
+					<a name="shutdown"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{string}</span>
-					<b>emit</b>(data, stream, The)
+					<span class="light">{module:vertigo/cluster.LocalCluster}</span>
+					<b>shutdown</b>(network, handler)
 					
 					</div>
 					<div class="description">
-						Emits data from the worker.
+						Shuts down a network.
 						
 						
 					</div>
@@ -470,22 +440,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>data</b>
+									<span class="light fixedFont">{module:vertigo/context.NetworkContext}</span> <b>network</b>
 									
 								</dt>
-								<dd>The data to emit.</dd>
+								<dd>A network context</dd>
 							
 								<dt>
-									<span class="light fixedFont">{string}</span> <b>stream</b>
-									<i>Optional</i>
-								</dt>
-								<dd>The stream to which to emit the message.</dd>
-							
-								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
+									<b>handler</b>
 									
 								</dt>
-								<dd>parent message.</dd>
+								<dd>An asynchronous result handler</dd>
 							
 							</dl>
 						
@@ -496,168 +460,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{string}</span> a unique message identifier.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="fail"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>fail</b>(The)
-					
-					</div>
-					<div class="description">
-						Fails a message.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{module:vertigo/message.Message}</span> <b>The</b>
-									
-								</dt>
-								<dd>message to fail.</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="messageHandler"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>messageHandler</b>(handler)
-					
-					</div>
-					<div class="description">
-						Sets a message handler on the worker.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Handler}</span> <b>handler</b>
-									
-								</dt>
-								<dd>The message handler.</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="start"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>start</b>()
-					
-					</div>
-					<div class="description">
-						Starts the worker.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="startHandler"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{module:vertigo/worker.Worker}</span>
-					<b>startHandler</b>(handler)
-					
-					</div>
-					<div class="description">
-						Sets a start handler on the worker.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Handler}</span> <b>handler</b>
-									
-								</dt>
-								<dd>A handler to be called when the worker is started.</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/worker.Worker}</span> The worker instance.</dd>
+								<dd><span class="light fixedFont">{module:vertigo/cluster.LocalCluster}</span> this</dd>
 							
 							</dl>
 						
@@ -678,7 +481,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 09 2013 15:49:25 GMT-0800 (PST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 09 2013 15:49:24 GMT-0800 (PST)
 		</div>
 	</body>
 </html>

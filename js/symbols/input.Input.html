@@ -193,7 +193,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/cluster.LocalCluster.html">cluster.LocalCluster</a></li>
 	
-	<li><a href="../symbols/cluster.ViaCluster.html">cluster.ViaCluster</a></li>
+	<li><a href="../symbols/cluster.RemoteCluster.html">cluster.RemoteCluster</a></li>
 	
 	<li><a href="../symbols/context.ComponentContext.html">context.ComponentContext</a></li>
 	
@@ -201,17 +201,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/context.NetworkContext.html">context.NetworkContext</a></li>
 	
-	<li><a href="../symbols/feeder.BasicFeeder.html">feeder.BasicFeeder</a></li>
+	<li><a href="../symbols/error.FailureError.html">error.FailureError</a></li>
 	
-	<li><a href="../symbols/feeder.PollingFeeder.html">feeder.PollingFeeder</a></li>
+	<li><a href="../symbols/error.TimeoutError.html">error.TimeoutError</a></li>
 	
-	<li><a href="../symbols/feeder.StreamFeeder.html">feeder.StreamFeeder</a></li>
+	<li><a href="../symbols/executor.Executor.html">executor.Executor</a></li>
 	
-	<li><a href="../symbols/filter.FieldFilter.html">filter.FieldFilter</a></li>
-	
-	<li><a href="../symbols/filter.SourceFilter.html">filter.SourceFilter</a></li>
-	
-	<li><a href="../symbols/filter.TagsFilter.html">filter.TagsFilter</a></li>
+	<li><a href="../symbols/feeder.Feeder.html">feeder.Feeder</a></li>
 	
 	<li><a href="../symbols/grouping.AllGrouping.html">grouping.AllGrouping</a></li>
 	
@@ -227,19 +223,9 @@ ul.inheritsList
 	
 	<li><a href="../symbols/message.Message.html">message.Message</a></li>
 	
-	<li><a href="../symbols/network.Module.html">network.Module</a></li>
+	<li><a href="../symbols/network.Component.html">network.Component</a></li>
 	
 	<li><a href="../symbols/network.Network.html">network.Network</a></li>
-	
-	<li><a href="../symbols/network.Verticle.html">network.Verticle</a></li>
-	
-	<li><a href="../symbols/rpc.BasicExecutor.html">rpc.BasicExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.PollingExecutor.html">rpc.PollingExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.StreamExecutor.html">rpc.StreamExecutor</a></li>
-	
-	<li><a href="../symbols/worker.BasicWorker.html">worker.BasicWorker</a></li>
 	
 	<li><a href="../symbols/worker.Worker.html">worker.Worker</a></li>
 	
@@ -320,9 +306,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/input.Input.html#filterBy">filterBy</a></b>(An)
+								<div class="fixedFont"><b><a href="../symbols/input.Input.html#allGrouping">allGrouping</a></b>()
 								</div>
-								<div class="description">Adds an input filter.</div>
+								<div class="description">Sets an all grouping on the input.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/input.Input.html#fieldsGrouping">fieldsGrouping</a></b>(fields)
+								</div>
+								<div class="description">Sets a fields grouping on the input.</div>
 							</td>
 						</tr>
 					
@@ -332,6 +327,33 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/input.Input.html#groupBy">groupBy</a></b>(An)
 								</div>
 								<div class="description">Adds an input grouping.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/input.Input.html#randomGrouping">randomGrouping</a></b>()
+								</div>
+								<div class="description">Sets a random grouping on the input.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/input.Input.html#roundGrouping">roundGrouping</a></b>()
+								</div>
+								<div class="description">Sets a round-robin grouping on the input.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/input.Input.html#stream">stream</a></b>(stream)
+								</div>
+								<div class="description">Gets or sets the input stream.</div>
 							</td>
 						</tr>
 					
@@ -417,7 +439,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{string}</span> The input address</dd>
+								<dd><span class="light fixedFont">{string}</span> The input address.</dd>
 							
 							</dl>
 						
@@ -426,15 +448,40 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="filterBy"> </a>
+					<a name="allGrouping"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{module:vertigo/input.Input}</span>
-					<b>filterBy</b>(An)
+					
+					<b>allGrouping</b>()
 					
 					</div>
 					<div class="description">
-						Adds an input filter.
+						Sets an all grouping on the input.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="fieldsGrouping"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>fieldsGrouping</b>(fields)
+					
+					</div>
+					<div class="description">
+						Sets a fields grouping on the input.
 						
 						
 					</div>
@@ -446,23 +493,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Filter}</span> <b>An</b>
+									<b>fields</b>
 									
 								</dt>
-								<dd>input filter</dd>
+								<dd></dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{module:vertigo/input.Input}</span> this</dd>
-							
-							</dl>
 						
 						
 						
@@ -489,10 +529,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Grouping}</span> <b>An</b>
+									<span class="light fixedFont">{module:vertigo/grouping.Grouping}</span> <b>An</b>
 									
 								</dt>
-								<dd>input grouping</dd>
+								<dd>input grouping.</dd>
 							
 							</dl>
 						
@@ -504,6 +544,99 @@ ul.inheritsList
 							<dt class="heading">Returns:</dt>
 							
 								<dd><span class="light fixedFont">{module:vertigo/input.Input}</span> this</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="randomGrouping"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>randomGrouping</b>()
+					
+					</div>
+					<div class="description">
+						Sets a random grouping on the input.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="roundGrouping"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>roundGrouping</b>()
+					
+					</div>
+					<div class="description">
+						Sets a round-robin grouping on the input.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="stream"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{string}</span>
+					<b>stream</b>(stream)
+					
+					</div>
+					<div class="description">
+						Gets or sets the input stream.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>stream</b>
+									
+								</dt>
+								<dd>The input stream name.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{string}</span> The input stream name.</dd>
 							
 							</dl>
 						
@@ -524,7 +657,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 06 2013 15:53:13 GMT-0800 (PST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 09 2013 15:49:25 GMT-0800 (PST)
 		</div>
 	</body>
 </html>

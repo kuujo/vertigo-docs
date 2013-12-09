@@ -20,170 +20,302 @@
 <span class='line'> 13</span>  * See the License for the specific language governing permissions and
 <span class='line'> 14</span>  * limitations under the License.
 <span class='line'> 15</span>  */</span><span class="WHIT">
-<span class='line'> 16</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">vertx</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertx'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">container</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertx/container'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 18</span> 
-<span class='line'> 19</span> </span><span class="COMM">/**
-<span class='line'> 20</span>  * The 'vertigo' module provides all of the Vertigo API namespaced
-<span class='line'> 21</span>  * under 'vertigo'.
-<span class='line'> 22</span>  *
-<span class='line'> 23</span>  * @example
-<span class='line'> 24</span>  * var vertigo = require('vertigo');
-<span class='line'> 25</span>  * vertigo.createPollingFeeder().start(function(error, feeder) {
-<span class='line'> 26</span>  *   if (!error) {
-<span class='line'> 27</span>  *     feeder.feedHandler(function() {
-<span class='line'> 28</span>  *       feeder.feed({foo: 'bar'});
-<span class='line'> 29</span>  *     });
-<span class='line'> 30</span>  *   }
-<span class='line'> 31</span>  * });
-<span class='line'> 32</span>  *
-<span class='line'> 33</span>  * @exports vertigo
-<span class='line'> 34</span>  */</span><span class="WHIT">
-<span class='line'> 35</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> 
-<span class='line'> 37</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/context'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="NAME">load</span><span class="PUNC">(</span><span class="STRN">'vertx/helpers.js'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="COMM">/**
+<span class='line'> 19</span>  * The 'vertigo' module provides the primary Vertigo API for creating
+<span class='line'> 20</span>  * and deploying networks and using component instances.
+<span class='line'> 21</span>  *
+<span class='line'> 22</span>  * @exports vertigo
+<span class='line'> 23</span>  */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="NAME">this.__jvertigo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">this.__jcontext</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="NAME">this.__jcomponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="NAME">this.__componentType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="NAME">vertigo.logger</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">__jcontainer.logger</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="COMM">// Attempt to create a component context from the verticle configuration.</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="NAME">this.__jcontext</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">net.kuujo.vertigo.util.Context.parseContext</span><span class="PUNC">(</span><span class="NAME">__jcontainer.config</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> 
+<span class='line'> 36</span> </span><span class="COMM">// Create a Vertigo factory.</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">vertigoFactory</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">net.kuujo.vertigo.impl.DefaultVertigoFactory</span><span class="PUNC">(</span><span class="NAME">__jvertx</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">__jcontainer</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 38</span> 
-<span class='line'> 39</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">config</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">__jcontainer.config</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">config</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">config.getFieldNames</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">contains</span><span class="PUNC">(</span><span class="STRN">'__context__'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">  </span><span class="NAME">vertigo.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">context.InstanceContext</span><span class="PUNC">(</span><span class="NAME">net.kuujo.vertigo.context.InstanceContext.fromJson</span><span class="PUNC">(</span><span class="NAME">config.getObject</span><span class="PUNC">(</span><span class="STRN">'__context__'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="WHIT">  </span><span class="NAME">vertigo.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="COMM">// If the context was successfully created then this is a component instance.</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="COMM">// For component instances, create the component and then instantiate a Vertigo instance.</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">__jcontext</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">  </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">componentFactory</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">net.kuujo.vertigo.component.impl.DefaultComponentFactory</span><span class="PUNC">(</span><span class="NAME">__jvertx</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">__jcontainer</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">  </span><span class="NAME">this.__jcomponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">componentFactory.createComponent</span><span class="PUNC">(</span><span class="NAME">__jcontext</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">  </span><span class="NAME">this.__jvertigo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigoFactory.createVertigo</span><span class="PUNC">(</span><span class="NAME">__jcomponent</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 46</span> 
-<span class='line'> 47</span> </span><span class="COMM">/**
-<span class='line'> 48</span>  * The vertigo network module.
-<span class='line'> 49</span>  * @see module:vertigo/network
-<span class='line'> 50</span>  */</span><span class="WHIT">
-<span class='line'> 51</span> </span><span class="NAME">vertigo.network</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/network'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="COMM">// For non-component verticles, instantiate an empty Vertigo instance.</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">  </span><span class="NAME">this.__jvertigo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigoFactory.createVertigo</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 50</span> 
+<span class='line'> 51</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/context'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 52</span> 
 <span class='line'> 53</span> </span><span class="COMM">/**
-<span class='line'> 54</span>  * The vertigo input module.
-<span class='line'> 55</span>  * @see module:vertigo/input
-<span class='line'> 56</span>  */</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="NAME">vertigo.input</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/input'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 58</span> 
-<span class='line'> 59</span> </span><span class="COMM">/**
-<span class='line'> 60</span>  * The vertigo grouping module.
-<span class='line'> 61</span>  * @see module:vertigo/grouping
-<span class='line'> 62</span>  */</span><span class="WHIT">
-<span class='line'> 63</span> </span><span class="NAME">vertigo.grouping</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/grouping'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 64</span> 
-<span class='line'> 65</span> </span><span class="COMM">/**
-<span class='line'> 66</span>  * The vertigo filter module.
-<span class='line'> 67</span>  * @see module:vertigo/filter
-<span class='line'> 68</span>  */</span><span class="WHIT">
-<span class='line'> 69</span> </span><span class="NAME">vertigo.filter</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/filter'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 70</span> 
-<span class='line'> 71</span> </span><span class="COMM">/**
-<span class='line'> 72</span>  * Creates a new Vertigo network.
-<span class='line'> 73</span>  * @param {string} address The network address
-<span class='line'> 74</span>  * @returns {module:vertigo/network.Network} A new network definition
-<span class='line'> 75</span>  */</span><span class="WHIT">
-<span class='line'> 76</span> </span><span class="NAME">vertigo.createNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 77</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.network.Network</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 78</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 79</span> 
-<span class='line'> 80</span> </span><span class="COMM">/**
-<span class='line'> 81</span>  * The vertigo feeder module.
-<span class='line'> 82</span>  * @see module:vertigo/feeder
-<span class='line'> 83</span>  */</span><span class="WHIT">
-<span class='line'> 84</span> </span><span class="NAME">vertigo.feeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/feeder'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 85</span> 
-<span class='line'> 86</span> </span><span class="COMM">/**
-<span class='line'> 87</span>  * Creates a basic feeder.
-<span class='line'> 88</span>  * @returns {module:vertigo/feeder.BasicFeeder} A basic feeder
-<span class='line'> 89</span>  */</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="NAME">vertigo.createBasicFeeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 91</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.feeder.BasicFeeder</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 92</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 93</span> 
-<span class='line'> 94</span> </span><span class="NAME">vertigo.createFeeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigo.createBasicFeeder</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 95</span> 
-<span class='line'> 96</span> </span><span class="COMM">/**
-<span class='line'> 97</span>  * Creates a polling feeder.
-<span class='line'> 98</span>  * @returns {module:vertigo/feeder.PollingFeeder} A polling feeder
-<span class='line'> 99</span>  */</span><span class="WHIT">
-<span class='line'>100</span> </span><span class="NAME">vertigo.createPollingFeeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>101</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.feeder.PollingFeeder</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>102</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>103</span> 
-<span class='line'>104</span> </span><span class="COMM">/**
-<span class='line'>105</span>  * Creates a stream feeder.
-<span class='line'>106</span>  * @returns {module:vertigo/feeder.StreamFeeder} A stream feeder
-<span class='line'>107</span>  */</span><span class="WHIT">
-<span class='line'>108</span> </span><span class="NAME">vertigo.createStreamFeeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.feeder.StreamFeeder</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>110</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>111</span> 
-<span class='line'>112</span> </span><span class="COMM">/**
-<span class='line'>113</span>  * The vertigo RPC module.
-<span class='line'>114</span>  * @see module:vertigo/rpc
-<span class='line'>115</span>  */</span><span class="WHIT">
-<span class='line'>116</span> </span><span class="NAME">vertigo.rpc</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/rpc'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>117</span> 
-<span class='line'>118</span> </span><span class="COMM">/**
-<span class='line'>119</span>  * Creates a basic executor.
-<span class='line'>120</span>  * @returns {module:vertigo/rpc.BasicExecutor} A basic executor
-<span class='line'>121</span>  */</span><span class="WHIT">
-<span class='line'>122</span> </span><span class="NAME">vertigo.createBasicExecutor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>123</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.rpc.BasicExecutor</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>124</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>125</span> 
-<span class='line'>126</span> </span><span class="NAME">vertigo.createExecutor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigo.createBasicExecutor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span>  * The component instance context.
+<span class='line'> 55</span>  *
+<span class='line'> 56</span>  * This context is only available within component instances. If the
+<span class='line'> 57</span>  * current verticle or module instance is not a Vertigo component instance,
+<span class='line'> 58</span>  * this variable will be undefined.
+<span class='line'> 59</span>  *
+<span class='line'> 60</span>  * @see module:vertigo/context.InstanceContext
+<span class='line'> 61</span>  */</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="NAME">vertigo.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="COMM">/**
+<span class='line'> 65</span>  * The vertigo feeder module.
+<span class='line'> 66</span>  *
+<span class='line'> 67</span>  * The feeder module is only available within feeder instances. If the
+<span class='line'> 68</span>  * current verticle or module instance is not a Vertigo feeder instance,
+<span class='line'> 69</span>  * this variable will be undefined.
+<span class='line'> 70</span>  *
+<span class='line'> 71</span>  * @example
+<span class='line'> 72</span>  * var vertigo = require('vertigo');
+<span class='line'> 73</span>  * vertigo.feeder.startHandler(function(error, feeder) {
+<span class='line'> 74</span>  *   feeder.emit({foo: 'bar'}, function(error) {
+<span class='line'> 75</span>  *     if (error) {
+<span class='line'> 76</span>  *       if (error.type == 'failure') {
+<span class='line'> 77</span>  *         console.log('The message was failed.');
+<span class='line'> 78</span>  *       }
+<span class='line'> 79</span>  *       else if (error.type == 'timeout') {
+<span class='line'> 80</span>  *         console.log('The message timed out.');
+<span class='line'> 81</span>  *       }
+<span class='line'> 82</span>  *     }
+<span class='line'> 83</span>  *   });
+<span class='line'> 84</span>  * });
+<span class='line'> 85</span>  *
+<span class='line'> 86</span>  * @see module:vertigo/feeder
+<span class='line'> 87</span>  */</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="NAME">vertigo.feeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 89</span> 
+<span class='line'> 90</span> </span><span class="COMM">/**
+<span class='line'> 91</span>  * The vertigo executor module.
+<span class='line'> 92</span>  *
+<span class='line'> 93</span>  * The executor module is only available within executor instances. If the
+<span class='line'> 94</span>  * current verticle or module instance is not a Vertigo feeder instance,
+<span class='line'> 95</span>  * this variable will be undefined.
+<span class='line'> 96</span>  *
+<span class='line'> 97</span>  * @example
+<span class='line'> 98</span>  * var vertigo = require('vertigo');
+<span class='line'> 99</span>  * vertigo.executor.startHandler(error, executor) {
+<span class='line'>100</span>  *   execuor.execute({foo: 'bar'}, function(error, result) {
+<span class='line'>101</span>  *     if (!error) {
+<span class='line'>102</span>  *       console.log('Result is ' + result.body);
+<span class='line'>103</span>  *     }
+<span class='line'>104</span>  *   });
+<span class='line'>105</span>  * }
+<span class='line'>106</span>  *
+<span class='line'>107</span>  * @see module:vertigo/executor
+<span class='line'>108</span>  */</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="NAME">vertigo.executor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> 
+<span class='line'>111</span> </span><span class="COMM">/**
+<span class='line'>112</span>  * The vertigo worker module.
+<span class='line'>113</span>  *
+<span class='line'>114</span>  * The worker module is only available within worker instances. If the
+<span class='line'>115</span>  * current verticle or module instance is not a Vertigo feeder instance,
+<span class='line'>116</span>  * this variable will be undefined.
+<span class='line'>117</span>  *
+<span class='line'>118</span>  * @example
+<span class='line'>119</span>  * var vertigo = require('vertigo');
+<span class='line'>120</span>  * vertigo.worker.messageHandler(function(message) {
+<span class='line'>121</span>  *   vertigo.worker.emit({body: 'I am a child of the message'}, message);
+<span class='line'>122</span>  * });
+<span class='line'>123</span>  *
+<span class='line'>124</span>  * @see module:vertigo/worker
+<span class='line'>125</span>  */</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="NAME">vertigo.worker</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>127</span> 
-<span class='line'>128</span> </span><span class="COMM">/**
-<span class='line'>129</span>  * Creates a polling executor.
-<span class='line'>130</span>  * @returns {module:vertigo/rpc.PollingExecutor} A polling executor
-<span class='line'>131</span>  */</span><span class="WHIT">
-<span class='line'>132</span> </span><span class="NAME">vertigo.createPollingExecutor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>133</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.rpc.PollingExecutor</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>134</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>135</span> 
-<span class='line'>136</span> </span><span class="COMM">/**
-<span class='line'>137</span>  * Creates a stream executor.
-<span class='line'>138</span>  * @returns {module:vertigo/rpc.StreamExecutor} A stream executor
-<span class='line'>139</span>  */</span><span class="WHIT">
-<span class='line'>140</span> </span><span class="NAME">vertigo.createStreamExecutor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>141</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.rpc.StreamExecutor</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>142</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>143</span> 
-<span class='line'>144</span> </span><span class="COMM">/**
-<span class='line'>145</span>  * The vertigo worker module.
-<span class='line'>146</span>  * @see module:vertigo/worker
-<span class='line'>147</span>  */</span><span class="WHIT">
-<span class='line'>148</span> </span><span class="NAME">vertigo.worker</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/worker'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">__jcomponent</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">  </span><span class="NAME">vertigo.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">context.InstanceContext</span><span class="PUNC">(</span><span class="NAME">__jcomponent.getContext</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> 
+<span class='line'>131</span> </span><span class="WHIT">  </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">componentType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">net.kuujo.vertigo.util.Component.serializeType</span><span class="PUNC">(</span><span class="NAME">__jcomponent.getContext</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getComponent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getType</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">  </span><span class="KEYW">switch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">componentType</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">    </span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"feeder"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">feeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/feeder'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">      </span><span class="NAME">vertigo.feeder</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">feeder.Feeder</span><span class="PUNC">(</span><span class="NAME">__jcomponent</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">start</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">      </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">    </span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"executor"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">executor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/executor'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">      </span><span class="NAME">vertigo.executor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">executor.Executor</span><span class="PUNC">(</span><span class="NAME">__jcomponent</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">start</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">      </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">    </span><span class="KEYW">case</span><span class="WHIT"> </span><span class="STRN">"worker"</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">worker</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/worker'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">      </span><span class="NAME">vertigo.worker</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">worker.Worker</span><span class="PUNC">(</span><span class="NAME">__jcomponent</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">start</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">      </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">    </span><span class="KEYW">default</span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">      </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"Unknown Vertigo component type "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">componentType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>149</span> 
 <span class='line'>150</span> </span><span class="COMM">/**
-<span class='line'>151</span>  * Creates a worker.
-<span class='line'>152</span>  * @returns {module:vertigo/worker.BasicWorker} A basic worker
-<span class='line'>153</span>  */</span><span class="WHIT">
-<span class='line'>154</span> </span><span class="NAME">vertigo.createWorker</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>155</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.worker.BasicWorker</span><span class="PUNC">(</span><span class="NAME">vertigo.context</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>156</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>157</span> 
-<span class='line'>158</span> </span><span class="COMM">/**
-<span class='line'>159</span>  * The vertigo cluster module.
-<span class='line'>160</span>  * @see module:vertigo/cluster
-<span class='line'>161</span>  */</span><span class="WHIT">
-<span class='line'>162</span> </span><span class="NAME">vertigo.cluster</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">require</span><span class="PUNC">(</span><span class="STRN">'vertigo/cluster'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>163</span> 
-<span class='line'>164</span> </span><span class="COMM">/**
-<span class='line'>165</span>  * Creates a local cluster.
-<span class='line'>166</span>  * @returns {module:vertigo/cluster.LocalCluster} A new local cluster instance
-<span class='line'>167</span>  */</span><span class="WHIT">
-<span class='line'>168</span> </span><span class="NAME">vertigo.createLocalCluster</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.cluster.LocalCluster</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>170</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>171</span> 
-<span class='line'>172</span> </span><span class="COMM">/**
-<span class='line'>173</span>  * Creates a Via cluster.
-<span class='line'>174</span>  * @param {string} address The Via cluster address
-<span class='line'>175</span>  * @returns {module:vertigo/cluster.ViaCluster} A new Via cluster instance
-<span class='line'>176</span>  */</span><span class="WHIT">
-<span class='line'>177</span> </span><span class="NAME">vertigo.createViaCluster</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>178</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.cluster.ViaCluster</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>180</span> 
-<span class='line'>181</span> </span><span class="NAME">module.exports</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>182</span> </span></pre></body></html>
+<span class='line'>151</span>  * Indicates whether the current verticle is a Vertigo component.
+<span class='line'>152</span>  * If the current module or verticle instance is a Vertigo component
+<span class='line'>153</span>  * instance, the feeder, executor, or worker will be available within
+<span class='line'>154</span>  * this module as well.
+<span class='line'>155</span>  *
+<span class='line'>156</span>  * @returns {Boolean} Indicates whether this verticle is a Vertigo component.
+<span class='line'>157</span>  */</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="NAME">vertigo.isComponent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">__jvertigo.isComponent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>161</span> 
+<span class='line'>162</span> </span><span class="COMM">/**
+<span class='line'>163</span>  * Creates a new Vertigo network.
+<span class='line'>164</span>  *
+<span class='line'>165</span>  * @example
+<span class='line'>166</span>  * var vertigo = require('vertigo');
+<span class='line'>167</span>  * var network = vertigo.createNetwork('foo');
+<span class='line'>168</span>  * network.addFeeder('foo.feeder', 'foo_feeder.js');
+<span class='line'>169</span>  * network.addWorker('foo.worker', 'foo_worker.js', 4).addInput('foo.feeder').randomGrouping();
+<span class='line'>170</span>  *
+<span class='line'>171</span>  * @param {string} address The network address
+<span class='line'>172</span>  * @returns {module:vertigo/network.Network} A new network definition
+<span class='line'>173</span>  */</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="NAME">vertigo.createNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.network.Network</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>177</span> 
+<span class='line'>178</span> </span><span class="COMM">/**
+<span class='line'>179</span>  * Deploys a local network.
+<span class='line'>180</span>  *
+<span class='line'>181</span>  * @example
+<span class='line'>182</span>  * var vertigo = require('vertigo');
+<span class='line'>183</span>  * var network = vertigo.createNetwork('foo');
+<span class='line'>184</span>  * network.addFeeder('foo.feeder', 'foo_feeder.js');
+<span class='line'>185</span>  * network.addWorker('foo.worker', 'foo_worker.js', 4).addInput('foo.feeder').randomGrouping();
+<span class='line'>186</span>  * vertigo.deployLocalNetwork(network, function(error, context) {
+<span class='line'>187</span>  *   if (!error) {
+<span class='line'>188</span>  *     // The network was successfully deployed.
+<span class='line'>189</span>  *   }
+<span class='line'>190</span>  * });
+<span class='line'>191</span>  *
+<span class='line'>192</span>  * @param {module:vertigo/network.Network} The network to deploy.
+<span class='line'>193</span>  * @param {Handler} A handler to be called once the deployment is complete.
+<span class='line'>194</span>  * The first argument to the handler will be an error if an error occured.
+<span class='line'>195</span>  * The second argument will be a network context.
+<span class='line'>196</span>  * @returns {module:vertigo} The vertigo instance.
+<span class='line'>197</span>  */</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="NAME">vertigo.deployLocalNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">network</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">  </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">    </span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">adaptAsyncResultHandler</span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">context.NetworkContext</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">  </span><span class="NAME">__jvertigo.deployLocalNetwork</span><span class="PUNC">(</span><span class="NAME">network.__jnetwork</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>207</span> 
+<span class='line'>208</span> </span><span class="COMM">/**
+<span class='line'>209</span>  * Shuts down a local network.
+<span class='line'>210</span>  *
+<span class='line'>211</span>  * @example
+<span class='line'>212</span>  * vertigo.deployLocalNetwork(network, function(error, context) {
+<span class='line'>213</span>  *   if (!error) {
+<span class='line'>214</span>  *     vertigo.shutdownLocalNetwork(context, function(error) {
+<span class='line'>215</span>  *       if (!error) {
+<span class='line'>216</span>  *         // The network was successfully shutdown.
+<span class='line'>217</span>  *       }
+<span class='line'>218</span>  *     });
+<span class='line'>219</span>  *   }
+<span class='line'>220</span>  * });
+<span class='line'>221</span>  *
+<span class='line'>222</span>  * @param {module:vertigo/context.NetworkContext} The context of the network to shutdown.
+<span class='line'>223</span>  * @param {Handler} A handler to be called once the shutdown is complete.
+<span class='line'>224</span>  * If an error occurred, the error will be passed as the only argument.
+<span class='line'>225</span>  * @returns {module:vertigo} The vertigo instance.
+<span class='line'>226</span>  */</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="NAME">vertigo.shutdownLocalNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">  </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">    </span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">adaptAsyncResultHandler</span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">  </span><span class="NAME">__jvertigo.shutdownLocalNetwork</span><span class="PUNC">(</span><span class="NAME">context.__jcontext</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>234</span> 
+<span class='line'>235</span> </span><span class="COMM">/**
+<span class='line'>236</span>  * Deploys a remote network.
+<span class='line'>237</span>  *
+<span class='line'>238</span>  * @example
+<span class='line'>239</span>  * var vertigo = require('vertigo');
+<span class='line'>240</span>  * var network = vertigo.createNetwork('foo');
+<span class='line'>241</span>  * network.addFeeder('foo.feeder', 'foo_feeder.js');
+<span class='line'>242</span>  * network.addWorker('foo.worker', 'foo_worker.js', 4).addInput('foo.feeder').randomGrouping();
+<span class='line'>243</span>  * vertigo.deployRemoteNetwork('via.master', network, function(error, context) {
+<span class='line'>244</span>  *   if (!error) {
+<span class='line'>245</span>  *     // The network was successfully deployed.
+<span class='line'>246</span>  *   }
+<span class='line'>247</span>  * });
+<span class='line'>248</span>  *
+<span class='line'>249</span>  * @param {String} address The remote cluster manager event bus address
+<span class='line'>250</span>  * @param {module:vertigo/network.Network} The network to deploy.
+<span class='line'>251</span>  * @param {Handler} A handler to be called once the deployment is complete.
+<span class='line'>252</span>  * The first argument to the handler will be an error if an error occured.
+<span class='line'>253</span>  * The second argument will be a network context.
+<span class='line'>254</span>  * @returns {module:vertigo} The vertigo instance.
+<span class='line'>255</span>  */</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="NAME">vertigo.deployRemoteNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">network</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">  </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">    </span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">adaptAsyncResultHandler</span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">context.NetworkContext</span><span class="PUNC">(</span><span class="NAME">result</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">  </span><span class="NAME">__jvertigo.deployRemoteNetwork</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">network</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>265</span> 
+<span class='line'>266</span> </span><span class="COMM">/**
+<span class='line'>267</span>  * Shuts down a remote network.
+<span class='line'>268</span>  *
+<span class='line'>269</span>  * @example
+<span class='line'>270</span>  * vertigo.deployRemoteNetwork('via.master', network, function(error, context) {
+<span class='line'>271</span>  *   if (!error) {
+<span class='line'>272</span>  *     vertigo.shutdownRemoteNetwork('via.master', context, function(error) {
+<span class='line'>273</span>  *       if (!error) {
+<span class='line'>274</span>  *         // The network was successfully shutdown.
+<span class='line'>275</span>  *       }
+<span class='line'>276</span>  *     });
+<span class='line'>277</span>  *   }
+<span class='line'>278</span>  * });
+<span class='line'>279</span>  *
+<span class='line'>280</span>  * @param {String} address The remote cluster manager event bus address
+<span class='line'>281</span>  * @param {module:vertigo/context.NetworkContext} The context of the network to shutdown.
+<span class='line'>282</span>  * @param {Handler} A handler to be called once the shutdown is complete.
+<span class='line'>283</span>  * If an error occurred, the error will be passed as the only argument.
+<span class='line'>284</span>  * @returns {module:vertigo} The vertigo instance.
+<span class='line'>285</span>  */</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="NAME">vertigo.shutdownRemoteNetwork</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">  </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">    </span><span class="NAME">doneHandler</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">adaptAsyncResultHandler</span><span class="PUNC">(</span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>289</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">  </span><span class="NAME">__jvertigo.shutdownRemoteNetwork</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">context.__jcontext</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doneHandler</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>293</span> 
+<span class='line'>294</span> </span><span class="COMM">/**
+<span class='line'>295</span>  * Creates a local cluster.
+<span class='line'>296</span>  *
+<span class='line'>297</span>  * @returns {module:vertigo/cluster.LocalCluster} A new local cluster instance
+<span class='line'>298</span>  */</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="NAME">vertigo.createLocalCluster</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.cluster.LocalCluster</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>302</span> 
+<span class='line'>303</span> </span><span class="COMM">/**
+<span class='line'>304</span>  * Creates a Via cluster.
+<span class='line'>305</span>  *
+<span class='line'>306</span>  * @param {string} address The remote cluster manager event bus address
+<span class='line'>307</span>  * @returns {module:vertigo/cluster.ViaCluster} A new remote cluster instance
+<span class='line'>308</span>  */</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="NAME">vertigo.createRemoteCluster</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">  </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">vertigo.cluster.RemoteCluster</span><span class="PUNC">(</span><span class="NAME">address</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>312</span> 
+<span class='line'>313</span> </span><span class="NAME">module.exports</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vertigo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>314</span> </span></pre></body></html>

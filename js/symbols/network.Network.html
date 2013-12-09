@@ -193,7 +193,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/cluster.LocalCluster.html">cluster.LocalCluster</a></li>
 	
-	<li><a href="../symbols/cluster.ViaCluster.html">cluster.ViaCluster</a></li>
+	<li><a href="../symbols/cluster.RemoteCluster.html">cluster.RemoteCluster</a></li>
 	
 	<li><a href="../symbols/context.ComponentContext.html">context.ComponentContext</a></li>
 	
@@ -201,17 +201,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/context.NetworkContext.html">context.NetworkContext</a></li>
 	
-	<li><a href="../symbols/feeder.BasicFeeder.html">feeder.BasicFeeder</a></li>
+	<li><a href="../symbols/error.FailureError.html">error.FailureError</a></li>
 	
-	<li><a href="../symbols/feeder.PollingFeeder.html">feeder.PollingFeeder</a></li>
+	<li><a href="../symbols/error.TimeoutError.html">error.TimeoutError</a></li>
 	
-	<li><a href="../symbols/feeder.StreamFeeder.html">feeder.StreamFeeder</a></li>
+	<li><a href="../symbols/executor.Executor.html">executor.Executor</a></li>
 	
-	<li><a href="../symbols/filter.FieldFilter.html">filter.FieldFilter</a></li>
-	
-	<li><a href="../symbols/filter.SourceFilter.html">filter.SourceFilter</a></li>
-	
-	<li><a href="../symbols/filter.TagsFilter.html">filter.TagsFilter</a></li>
+	<li><a href="../symbols/feeder.Feeder.html">feeder.Feeder</a></li>
 	
 	<li><a href="../symbols/grouping.AllGrouping.html">grouping.AllGrouping</a></li>
 	
@@ -227,19 +223,9 @@ ul.inheritsList
 	
 	<li><a href="../symbols/message.Message.html">message.Message</a></li>
 	
-	<li><a href="../symbols/network.Module.html">network.Module</a></li>
+	<li><a href="../symbols/network.Component.html">network.Component</a></li>
 	
 	<li><a href="../symbols/network.Network.html">network.Network</a></li>
-	
-	<li><a href="../symbols/network.Verticle.html">network.Verticle</a></li>
-	
-	<li><a href="../symbols/rpc.BasicExecutor.html">rpc.BasicExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.PollingExecutor.html">rpc.PollingExecutor</a></li>
-	
-	<li><a href="../symbols/rpc.StreamExecutor.html">rpc.StreamExecutor</a></li>
-	
-	<li><a href="../symbols/worker.BasicWorker.html">worker.BasicWorker</a></li>
 	
 	<li><a href="../symbols/worker.Worker.html">worker.Worker</a></li>
 	
@@ -311,24 +297,6 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#ackDelay">ackDelay</a></b>(delay)
-								</div>
-								<div class="description">Sets or gets the network ack delay.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#ackExpire">ackExpire</a></b>(expire)
-								</div>
-								<div class="description">Sets or gets the network ack expiration.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/network.Network.html#ackingEnabled">ackingEnabled</a></b>()
 								</div>
 								<div class="description">Indicates whether acking is enabled on the network.</div>
@@ -338,7 +306,16 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addComponent">addComponent</a></b>(component)
+								<div class="fixedFont"><b><a href="../symbols/network.Network.html#ackTimeout">ackTimeout</a></b>(timeout)
+								</div>
+								<div class="description">Sets or gets the network ack timeout.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addComponent">addComponent</a></b>(the)
 								</div>
 								<div class="description">Adds a component to the network.</div>
 							</td>
@@ -347,27 +324,27 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addModule">addModule</a></b>(address, moduleName, config, instances)
+								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addExecutor">addExecutor</a></b>(address, main, config, instances)
 								</div>
-								<div class="description">Adds a module component to the network.</div>
+								<div class="description">Adds an executor component to the network.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addVerticle">addVerticle</a></b>(address, main, config, instances)
+								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addFeeder">addFeeder</a></b>(address, main, config, instances)
 								</div>
-								<div class="description">Adds a verticle component to the network.</div>
+								<div class="description">Adds a feeder component to the network.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/network.Network.html#broadcastAddress">broadcastAddress</a></b>(address)
+								<div class="fixedFont"><b><a href="../symbols/network.Network.html#addWorker">addWorker</a></b>(address, main, config, instances)
 								</div>
-								<div class="description">Gets or sets the network broadcast address.</div>
+								<div class="description">Adds a worker component to the network.</div>
 							</td>
 						</tr>
 					
@@ -457,82 +434,10 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="ackDelay"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>ackDelay</b>(delay)
-					
-					</div>
-					<div class="description">
-						Sets or gets the network ack delay.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>delay</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="ackExpire"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>ackExpire</b>(expire)
-					
-					</div>
-					<div class="description">
-						Sets or gets the network ack expiration.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>expire</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="ackingEnabled"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{boolean}</span>
+					<span class="light">{Boolean}</span>
 					<b>ackingEnabled</b>()
 					
 					</div>
@@ -552,9 +457,45 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{boolean}</span> indicates whether acking is enabled.</dd>
+								<dd><span class="light fixedFont">{Boolean}</span> indicates whether acking is enabled.</dd>
 							
 							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="ackTimeout"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>ackTimeout</b>(timeout)
+					
+					</div>
+					<div class="description">
+						Sets or gets the network ack timeout.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Integer}</span> <b>timeout</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The network ack timeout.</dd>
+							
+							</dl>
+						
+						
+						
+						
 						
 						
 						
@@ -564,8 +505,8 @@ ul.inheritsList
 					<a name="addComponent"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>addComponent</b>(component)
+					<span class="light">{module:vertigo/network.Network}</span>
+					<b>addComponent</b>(the)
 					
 					</div>
 					<div class="description">
@@ -581,10 +522,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>component</b>
+									<span class="light fixedFont">{module:vertigo/network.Verticle|module:vertigo/network.Module}</span> <b>the</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>component to add</dd>
 							
 							</dl>
 						
@@ -592,20 +533,27 @@ ul.inheritsList
 						
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{module:vertigo/network.Network}</span> this</dd>
+							
+							</dl>
+						
 						
 						
 
 					<hr />
 				
-					<a name="addModule"> </a>
+					<a name="addExecutor"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>addModule</b>(address, moduleName, config, instances)
+					<b>addExecutor</b>(address, main, config, instances)
 					
 					</div>
 					<div class="description">
-						Adds a module component to the network.
+						Adds an executor component to the network.
 						
 						
 					</div>
@@ -620,79 +568,25 @@ ul.inheritsList
 									<span class="light fixedFont">{string}</span> <b>address</b>
 									
 								</dt>
-								<dd>The network address</dd>
-							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>moduleName</b>
-									
-								</dt>
-								<dd>The module name</dd>
-							
-								<dt>
-									<span class="light fixedFont">{object}</span> <b>config</b>
-									
-								</dt>
-								<dd>The module configuration</dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>instances</b>
-									
-								</dt>
-								<dd>The number of component instances</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="addVerticle"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>addVerticle</b>(address, main, config, instances)
-					
-					</div>
-					<div class="description">
-						Adds a verticle component to the network.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>address</b>
-									
-								</dt>
-								<dd>The network address</dd>
+								<dd>The executor address</dd>
 							
 								<dt>
 									<span class="light fixedFont">{string}</span> <b>main</b>
 									
 								</dt>
-								<dd>The verticle main</dd>
+								<dd>The executor main or module name</dd>
 							
 								<dt>
 									<span class="light fixedFont">{object}</span> <b>config</b>
-									
+									<i>Optional</i>
 								</dt>
-								<dd>The verticle configuration</dd>
+								<dd>The executor configuration</dd>
 							
 								<dt>
 									<span class="light fixedFont">{number}</span> <b>instances</b>
-									
+									<i>Optional</i>
 								</dt>
-								<dd>The number of component instances</dd>
+								<dd>The number of executor component instances</dd>
 							
 							</dl>
 						
@@ -705,15 +599,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="broadcastAddress"> </a>
+					<a name="addFeeder"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>broadcastAddress</b>(address)
+					<b>addFeeder</b>(address, main, config, instances)
 					
 					</div>
 					<div class="description">
-						Gets or sets the network broadcast address.
+						Adds a feeder component to the network.
 						
 						
 					</div>
@@ -725,10 +619,82 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>address</b>
+									<span class="light fixedFont">{string}</span> <b>address</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>The feeder address</dd>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>main</b>
+									
+								</dt>
+								<dd>The feeder main or module name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{object}</span> <b>config</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The feeder configuration</dd>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>instances</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The number of feeder component instances</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="addWorker"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>addWorker</b>(address, main, config, instances)
+					
+					</div>
+					<div class="description">
+						Adds a worker component to the network.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>address</b>
+									
+								</dt>
+								<dd>The worker address</dd>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>main</b>
+									
+								</dt>
+								<dd>The worker main or module name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{object}</span> <b>config</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The worker configuration</dd>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>instances</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The number of worker component instances</dd>
 							
 							</dl>
 						
@@ -825,10 +791,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>num</b>
-									
+									<span class="light fixedFont">{Integer}</span> <b>num</b>
+									<i>Optional</i>
 								</dt>
-								<dd></dd>
+								<dd>The number of network auditors.</dd>
 							
 							</dl>
 						
@@ -853,7 +819,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 06 2013 15:53:13 GMT-0800 (PST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 09 2013 15:49:25 GMT-0800 (PST)
 		</div>
 	</body>
 </html>
