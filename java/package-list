@@ -1,4 +1,5 @@
 net.kuujo.vertigo
+net.kuujo.vertigo.annotations
 net.kuujo.vertigo.cluster
 net.kuujo.vertigo.component
 net.kuujo.vertigo.context
@@ -6,13 +7,12 @@ net.kuujo.vertigo.events
 net.kuujo.vertigo.feeder
 net.kuujo.vertigo.hooks
 net.kuujo.vertigo.input
-net.kuujo.vertigo.input.filter
 net.kuujo.vertigo.input.grouping
+net.kuujo.vertigo.java
 net.kuujo.vertigo.message
+net.kuujo.vertigo.message.schema
 net.kuujo.vertigo.network
 net.kuujo.vertigo.output
-net.kuujo.vertigo.output.condition
-net.kuujo.vertigo.output.selector
 net.kuujo.vertigo.rpc
 net.kuujo.vertigo.runtime
 net.kuujo.vertigo.serializer
