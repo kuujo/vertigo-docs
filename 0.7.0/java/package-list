@@ -15,5 +15,3 @@ net.kuujo.vertigo.io.stream
 net.kuujo.vertigo.java
 net.kuujo.vertigo.network
 net.kuujo.vertigo.platform
-net.kuujo.vertigo.util
-net.kuujo.vertigo.util.serialization
