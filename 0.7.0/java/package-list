@@ -11,3 +11,4 @@ net.kuujo.vertigo.io.port
 net.kuujo.vertigo.io.selector
 net.kuujo.vertigo.java
 net.kuujo.vertigo.network
+net.kuujo.vertigo.service
